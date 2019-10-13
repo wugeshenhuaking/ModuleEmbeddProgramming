@@ -1,0 +1,60 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: μVision V5.14.0.0
+Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: yang yang, qqqqq, LIC=LJWEV-P6L2I-MQC0F-6X0S0-LU2X4-604SW
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Professional  Version: 5.14.0.0
+Toolchain Path:  E:\MDK5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.05 update 1 (build 106)
+Assembler:       Armasm.exe V5.05 update 1 (build 106)
+Linker/Locator:  ArmLink.exe V5.05 update 1 (build 106)
+Library Manager: ArmAr.exe V5.05 update 1 (build 106)
+Hex Converter:   FromElf.exe V5.05 update 1 (build 106)
+CPU DLL:         SARMCM3.DLL V5.14.0.0
+Dialog DLL:      DARMSTM.DLL V1.65.0.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V2.0.14.0_KEIL
+Dialog DLL:      TARMSTM.DLL V1.64.0.0
+ 
+<h2>Project:</h2>
+H:\OpenProgrammingModuleForMCU\3-关于串口接收数据\STM32F10xTemplate\Progect\Progect.uvprojx
+Project File Date:  10/14/2019
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling stm32f10x_it.c...
+compiling main.c...
+..\User\main.c(27): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "unsigned char *"
+                        UsartOutStr(Usart1ReadBuff,Usart1ReadCntCopy);//返回接收的数据
+..\User\main.c: 1 warning, 0 errors
+compiling System.c...
+compiling delay.c...
+compiling usart.c...
+compiling gpio.c...
+compiling test.c...
+compiling core_cm3.c...
+compiling system_stm32f10x.c...
+compiling misc.c...
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_usart.c...
+compiling stm32f10x_flash.c...
+compiling stm32f10x_gpio.c...
+assembling startup_stm32f10x_hd.s...
+linking...
+Program Size: Code=4576 RO-data=336 RW-data=68 ZI-data=1180  
+FromELF: creating hex file...
+After Build - User command #1: E:\MDK5\ARM\ARMCC\bin\fromelf.exe  --bin -o  .\Progect\Progect.bin  .\output\Progect.axf
+".\output\Progect.axf" - 0 Error(s), 1 Warning(s).
+
+<h2>Collection of Component include folders:</h2>
+  H:\OpenProgrammingModuleForMCU\3-关于串口接收数据\STM32F10xTemplate\Progect\RTE
+  E:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+</pre>
+</body>
+</html>
