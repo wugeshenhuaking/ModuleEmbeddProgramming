@@ -19,7 +19,7 @@ int main(void)
 	DelayInit();
 	rbCreate(&Uart1rb,Usart1SendBuff,Usart1SendLen);//创建环形队列--串口1
 	
-	ConfigModuleNoBlockFlage = 1;//不让配置函数执行
+//	ConfigModuleNoBlockFlage = 1;//不让配置函数执行
 	
 	while(1)
 	{
