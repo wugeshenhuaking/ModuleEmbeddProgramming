@@ -454,19 +454,9 @@
               <FilePath>..\User\LoopList.c</FilePath>
             </File>
             <File>
-              <FileName>ConfigModuleBlock.c</FileName>
+              <FileName>key.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\User\ConfigModuleBlock.c</FilePath>
-            </File>
-            <File>
-              <FileName>ConfigModuleNoBlock.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\ConfigModuleNoBlock.c</FilePath>
-            </File>
-            <File>
-              <FileName>cString.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\cString.c</FilePath>
+              <FilePath>..\User\key.c</FilePath>
             </File>
           </Files>
         </Group>
