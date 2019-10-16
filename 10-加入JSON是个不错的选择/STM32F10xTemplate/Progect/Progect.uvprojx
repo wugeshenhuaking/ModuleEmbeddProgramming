@@ -458,6 +458,11 @@
               <FileType>1</FileType>
               <FilePath>..\User\key.c</FilePath>
             </File>
+            <File>
+              <FileName>cJSON.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\cJSON.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
