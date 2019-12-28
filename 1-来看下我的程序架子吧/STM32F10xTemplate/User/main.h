@@ -3,9 +3,9 @@
 #include <stm32f10x.h>
 
 #ifndef __MAIN_C_
-#define __MAIN_EXT_ extern
+#define __MAIN_Ex_ extern
 #else
-#define __MAIN_EXT_
+#define __MAIN_Ex_
 #endif
 
 
