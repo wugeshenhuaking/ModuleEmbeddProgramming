@@ -424,11 +424,6 @@
               <FilePath>..\User\System.c</FilePath>
             </File>
             <File>
-              <FileName>delay.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\delay.c</FilePath>
-            </File>
-            <File>
               <FileName>include.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\User\include.h</FilePath>
@@ -447,6 +442,11 @@
               <FileName>LoopList.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\LoopList.c</FilePath>
+            </File>
+            <File>
+              <FileName>delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\delay.c</FilePath>
             </File>
             <File>
               <FileName>BufferManage.c</FileName>
