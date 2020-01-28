@@ -31,14 +31,20 @@ int main(void)
 		{
 			SysTickCntMs=0;
 			
-			PutData(&Uart1rb,NULL,temp,10);//数据写入环形队列
-			SendCount[0] = 10;//这次发送的数据个数
-			PutData(&Uart1rbManage,NULL,SendCount,1);//数据写入环形队列,记录这次要发送的数据个数
 			
+			if(rbCanWrite(&Uart1rb)>=10)
+			{
+				if(rbCanWrite(&Uart1rbManage)>=1)
+				{
+					PutData(&Uart1rb,temp,10);//数据写入环形队列
+					SendCount[0] = 10;//这次发送的数据个数
+					PutData(&Uart1rbManage,SendCount,1);//数据写入环形队列,记录这次要发送的数据个数
+				}
+			}
 			
-			PutData(&Uart1rb,NULL,temp1,15);//数据写入环形队列
+			PutData(&Uart1rb,temp1,15);//数据写入环形队列
 			SendCount[0] = 15;//这次发送的数据个数
-			PutData(&Uart1rbManage,NULL,SendCount,1);//数据写入环形队列,记录这次要发送的数据个数
+			PutData(&Uart1rbManage,SendCount,1);//数据写入环形队列,记录这次要发送的数据个数
 		}
 
 		
@@ -46,8 +52,8 @@ int main(void)
     if(Usart1ReadFlage)//串口接收完一条完整的数据
 		{
 		  Usart1ReadFlage=0;
-			PutData(&Uart1rb,NULL,temp,10);//数据写入环形队列,然后打开串口1发送中断发送
-			PutData(&Uart1rb,NULL,temp,10);//数据写入环形队列,然后打开串口1发送中断发送
+			PutData(&Uart1rb,temp,10);//数据写入环形队列,然后打开串口1发送中断发送
+			PutData(&Uart1rb,temp,10);//数据写入环形队列,然后打开串口1发送中断发送
 		
 //			UsartOutStr(Usart1ReadBuff,Usart1ReadCntCopy);
 			memset(Usart1ReadBuff,NULL, sizeof(Usart1ReadBuff));//清零

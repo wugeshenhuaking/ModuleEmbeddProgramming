@@ -5,10 +5,10 @@
 <h2>Tool Versions:</h2>
 IDE-Version: μVision V5.14.0.0
 Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: yang yang, qqqqq, LIC=LJWEV-P6L2I-MQC0F-6X0S0-LU2X4-604SW
+License Information: yang yang, qqqqq, LIC=QF82M-X6II9-WFRI7-EP5XW-88HH1-D3FPH
  
 Tool Versions:
-Toolchain:       MDK-ARM Professional  Version: 5.14.0.0
+Toolchain:       MDK-ARM Standard  Version: 5.14.0.0
 Toolchain Path:  E:\MDK5\ARM\ARMCC\Bin
 C Compiler:      Armcc.exe V5.05 update 1 (build 106)
 Assembler:       Armasm.exe V5.05 update 1 (build 106)
@@ -27,17 +27,18 @@ Project File Date:  10/14/2019
 <h2>Output:</h2>
 Build target 'Target 1'
 compiling main.c...
-..\User\main.c(24): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
+..\User\main.c(28): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
                 PutData(&Uart1rb,USART1,temp,10);//数据写入环形队列,然后打开串口1发送中断发送
-..\User\main.c(25): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
+..\User\main.c(29): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
                 PutData(&Uart1rb,USART1,temp,10);//数据写入环形队列,然后打开串口1发送中断发送
-..\User\main.c(31): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
+..\User\main.c(35): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
                         PutData(&Uart1rb,USART1,temp,10);//数据写入环形队列,然后打开串口1发送中断发送
-..\User\main.c(32): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
+..\User\main.c(36): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
                         PutData(&Uart1rb,USART1,temp,10);//数据写入环形队列,然后打开串口1发送中断发送
 ..\User\main.c: 4 warnings, 0 errors
+compiling usart.c...
 linking...
-Program Size: Code=5644 RO-data=336 RW-data=84 ZI-data=1692  
+Program Size: Code=5628 RO-data=336 RW-data=84 ZI-data=1692  
 FromELF: creating hex file...
 After Build - User command #1: E:\MDK5\ARM\ARMCC\bin\fromelf.exe  --bin -o  .\Progect\Progect.bin  .\output\Progect.axf
 ".\output\Progect.axf" - 0 Error(s), 4 Warning(s).

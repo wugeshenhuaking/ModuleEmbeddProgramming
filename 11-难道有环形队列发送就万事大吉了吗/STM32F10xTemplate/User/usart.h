@@ -21,7 +21,8 @@ USART_Ex_ u32  Usart1IdleTime;//设置串口空闲时间(MS)
 USART_Ex_ u8   Usart1ReadFlage;//串口1接收到一条完整数据
 USART_Ex_ u8   Usart1SendBuff[Usart1SendLen];  //发送数据缓存--环形队列用
 
-USART_Ex_ u8   Usart1ManageSendBuff[Usart1ManageSendBuffLen];//管理发送每一条数据--环形队列用
+
+USART_Ex_ u32  Usart1ManageSendBuff[Usart1ManageSendBuffLen];//管理发送每一条数据--环形队列用
 USART_Ex_ u32  Usart1ManageSendDatLen;//环形队列读取数据用,查询这次需要发送的数据个数
 USART_Ex_ u32  Usart1ManageSendDelayCnt;//控制下一条数据发送的时间
 

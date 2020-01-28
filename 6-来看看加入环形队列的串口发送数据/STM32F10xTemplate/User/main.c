@@ -11,6 +11,9 @@
 #include "include.h"
 
 char temp[10]="qwertyuiop";
+
+u8 buff[1024];
+
 int main(void)
 {
   NVIC_Configuration();
@@ -19,8 +22,9 @@ int main(void)
 	DelayInit();
 	
 	rbCreate(&Uart1rb,Usart1SendBuff,Usart1SendLen);//创建环形队列--串口1
+		
 	while(1)
-	{
+	{		
 		PutData(&Uart1rb,USART1,temp,10);//数据写入环形队列,然后打开串口1发送中断发送
 		PutData(&Uart1rb,USART1,temp,10);//数据写入环形队列,然后打开串口1发送中断发送
 

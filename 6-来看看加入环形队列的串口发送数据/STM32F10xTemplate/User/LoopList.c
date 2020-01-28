@@ -205,7 +205,7 @@ int32_t PutData(rb_t *rb ,USART_TypeDef *USARTx,uint8_t *buf, uint32_t len)
 
 		if(USARTx !=0)
 		{
-			USART_ITConfig(USARTx, USART_IT_TXE, ENABLE);
+//			USART_ITConfig(USARTx, USART_IT_TXE, ENABLE);
 		}
     return count;
 }

@@ -47,7 +47,8 @@ u8   Usart1ReadFlage=0;//串口1接收到一条完整数据
 u8   Usart1SendBuff[Usart1SendLen]={0};  //发送数据缓存--环形队列用
 u8   Usart1SendDat = 0;//环形队列读取数据用
 
-u8   Usart1ManageSendBuff[Usart1ManageSendBuffLen]={0};//管理发送每一条数据--环形队列用
+
+u32  Usart1ManageSendBuff[Usart1ManageSendBuffLen]={0};//管理发送每一条数据--环形队列用
 u32  Usart1ManageSendDatLen = 0;//环形队列读取数据用,查询这次需要发送的数据个数
 u32  Usart1ManageSendDelayCnt = 0;//控制下一条数据发送的时间
 

@@ -5,17 +5,17 @@
 rb_t Uart1rb;  //创建一个环形队列管理变量
 rb_t Uart1rbManage;  //创建一个环形队列管理变量
 
-void rbCreate(rb_t* rb,u8 *Buff,uint32_t BuffLen)//创建或者说初始化环形缓冲区
+void rbCreate(rb_t* rb,void *Buff,uint32_t BuffLen)//创建或者说初始化环形缓冲区
 {
-    if(NULL == rb)
-    {
-        printf("ERROR: input rb is NULL\n");
-        return;
-    }
-    rb->rbCapacity = BuffLen;
-		rb->rbBuff = Buff;
-    rb->rbHead = rb->rbBuff;//头指向数组首地址
-    rb->rbTail = rb->rbBuff;//尾指向数组首地址
+	if(NULL == rb)
+	{
+			printf("ERROR: input rb is NULL\n");
+			return;
+	}
+	rb->rbCapacity = BuffLen;
+	rb->rbBuff = Buff;
+	rb->rbHead = rb->rbBuff;//头指向数组首地址
+	rb->rbTail = rb->rbBuff;//尾指向数组首地址
 }
 
 void rbDelete(rb_t* rb)//删除一个环形缓冲区
@@ -187,7 +187,7 @@ int32_t rbWrite(rb_t *rb, const void *data, size_tt count)
 * @warning
 * @example 
 **/
-int32_t PutData(rb_t *rb ,USART_TypeDef *USARTx,uint8_t *buf, uint32_t len)
+int32_t PutData(rb_t *rb ,void *buf, uint32_t len)
 {
     int32_t count = 0;
 
@@ -203,11 +203,6 @@ int32_t PutData(rb_t *rb ,USART_TypeDef *USARTx,uint8_t *buf, uint32_t len)
         printf("ERROR: Failed to rbWrite \n");
         return -1;
     }
-
-		if(USARTx !=0)
-		{
-			USART_ITConfig(USARTx, USART_IT_TXE, ENABLE);
-		}
     return count;
 }
 
