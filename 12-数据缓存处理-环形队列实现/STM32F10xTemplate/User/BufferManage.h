@@ -32,6 +32,7 @@ BUFFMANAGE_Cx_ buff_manage_struct buff_manage_struct1;
 int32_t BufferManageCreate(buff_manage_struct *bms,void *buff,uint32_t BuffLen,void *ManageBuff,uint32_t ManageBuffLen);
 int32_t BufferManageWrite(buff_manage_struct *bms,void *buff,uint32_t BuffLen);
 int32_t BufferManageRead(buff_manage_struct *bms,void *buff);
+void BufferManageClear(buff_manage_struct *bms);
 
 #endif
 

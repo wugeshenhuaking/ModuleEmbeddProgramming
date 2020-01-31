@@ -149,6 +149,8 @@ void USART1_IRQHandler(void)//串口1中断服务程序
 		}
 		else//发送字节结束
 		{ 
+			buff_manage_struct1.SendLen = 0;
+			
 			USART_ClearITPendingBit(USART1,USART_IT_TXE);
 			USART_ITConfig(USART1, USART_IT_TXE, DISABLE);
 			USART_ITConfig(USART1, USART_IT_TC, ENABLE);

@@ -82,6 +82,34 @@ int32_t BufferManageRead(buff_manage_struct *bms,void *buff)
 }
 
 
+/**
+* @brief   清空缓存
+* @param   bms			缓存管理结构体变量
+* @param   None
+* @param   None
+* @retval  None
+* @warning None
+* @example 
+**/
+void BufferManageClear(buff_manage_struct *bms)
+{
+	__disable_irq();
+	
+	bms->Buff.rbHead = bms->Buff.rbBuff;
+	bms->Buff.rbTail = bms->Buff.rbBuff;
+	
+	bms->ManageBuff.rbHead = bms->ManageBuff.rbBuff;
+	bms->ManageBuff.rbTail = bms->ManageBuff.rbBuff;
+	
+	bms->Count=0;
+	bms->Cnt=0;
+	bms->ReadFlage=0;
+	bms->ReadLen=0;
+	bms->SendFlage=0;
+	bms->SendLen=0;
+	
+	__enable_irq();
+}
 
 
 
