@@ -50,6 +50,7 @@ void MemManageCreate(mem_manage_struct *mms, void *buff, INT32U nblks, INT32U bl
 **/
 void MemManageWrite(mem_manage_struct *mms,void *buff,uint32_t BuffLen, INT8U *err)
 {
+	OS_ENTER_CRITICAL();//禁止中断打断
 	if(mms->BlkNumber[mms->BlkWriteCount]==0)//循环过来以后,确定第一条数据提取出来了
 	{
 		mms->BlkAddr[mms->BlkWriteCount] = OSMemGet(mms->CommTxBuffer,err);//申请一个内存块
@@ -57,14 +58,8 @@ void MemManageWrite(mem_manage_struct *mms,void *buff,uint32_t BuffLen, INT8U *e
 		if(*err==0)
 		{
 			memcpy(mms->BlkAddr[mms->BlkWriteCount],buff,BuffLen*(sizeof(data_type_t)));//把数据拷贝到内存块
-			
-			
-			OS_ENTER_CRITICAL();//禁止中断打断
-
 			mms->BlkNumber[mms->BlkWriteCount] = BuffLen;//记录存储的数据个数
 			mms->BlkWriteCount++;//写入计数
-			
-			OS_EXIT_CRITICAL();//打开中断
 			
 			if(mms->BlkWriteCount>=BlocksNumber)
 			{
@@ -76,6 +71,7 @@ void MemManageWrite(mem_manage_struct *mms,void *buff,uint32_t BuffLen, INT8U *e
 	{
 		*err = OS_MEM_NO_FREE_BLKS;
 	}
+	OS_EXIT_CRITICAL();//打开中断
 }
 
 
@@ -85,7 +81,7 @@ void MemManageWrite(mem_manage_struct *mms,void *buff,uint32_t BuffLen, INT8U *e
 * @param   Length   返回的数据长度
 * @param   None
 * @retval  数据的首地址
-* @warning None
+* @warning 如果主循环和中断都调用此函数: 关闭中断(); 调用此函数(); 打开中断();
 * @example 
 **/
 data_type_t *MemManageRead(mem_manage_struct *mms,uint32_t *Length)
@@ -115,11 +111,11 @@ void MemManageFree(mem_manage_struct *mms)
 	OSMemPut(mms->CommTxBuffer,mms->BlkAddr[mms->BlkReadCount]);//释放内存块
 	mms->BlkReadCount++;
 	
-	OS_EXIT_CRITICAL();//打开中断
 	if(mms->BlkReadCount >= BlocksNumber)
 	{
 		mms->BlkReadCount=0;
 	}
+	OS_EXIT_CRITICAL();//打开中断
 }
 
 

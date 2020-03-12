@@ -1,3 +1,14 @@
+/**
+  ******************************************************************************
+  * @author  yang feng wu 
+  * @version V1.0.0
+  * @date    2020/1/28
+  * @brief   
+  ******************************************************************************
+	使用说明:https://www.cnblogs.com/yangfengwu/p/12228402.html
+  ******************************************************************************
+  */
+
 #define BUFFMANAGE_C_
 #include "BufferManage.h"
 #include "LoopList.h"
@@ -45,9 +56,10 @@ int32_t BufferManageCreate(buff_manage_struct *bms,void *buff,uint32_t BuffLen,v
 **/
 int32_t BufferManageWrite(buff_manage_struct *bms,void *buff,uint32_t BuffLen)
 {
-	if(rbCanWrite(&(bms->Buff))>=BuffLen)//可以写入数据
+	__disable_irq();
+	if(rbCanWrite(&(bms->Buff))>BuffLen)//可以写入数据
 	{
-		if(rbCanWrite(&(bms->ManageBuff))>=4)//可以记录数据个数
+		if(rbCanWrite(&(bms->ManageBuff))>4)//可以记录数据个数
 		{			
 			PutData(&(bms->Buff) ,buff, BuffLen);
 			PutData(&(bms->ManageBuff) ,&BuffLen, 4);
@@ -56,6 +68,7 @@ int32_t BufferManageWrite(buff_manage_struct *bms,void *buff,uint32_t BuffLen)
 		else  return -2;
 	}
 	else return -3;
+	__enable_irq();
 }
 
 
