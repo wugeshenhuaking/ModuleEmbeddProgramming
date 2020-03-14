@@ -56,7 +56,6 @@ int32_t BufferManageCreate(buff_manage_struct *bms,void *buff,uint32_t BuffLen,v
 **/
 int32_t BufferManageWrite(buff_manage_struct *bms,void *buff,uint32_t BuffLen)
 {
-	__disable_irq();
 	if(rbCanWrite(&(bms->Buff))>BuffLen)//可以写入数据
 	{
 		if(rbCanWrite(&(bms->ManageBuff))>4)//可以记录数据个数
@@ -68,7 +67,6 @@ int32_t BufferManageWrite(buff_manage_struct *bms,void *buff,uint32_t BuffLen)
 		else  return -2;
 	}
 	else return -3;
-	__enable_irq();
 }
 
 
