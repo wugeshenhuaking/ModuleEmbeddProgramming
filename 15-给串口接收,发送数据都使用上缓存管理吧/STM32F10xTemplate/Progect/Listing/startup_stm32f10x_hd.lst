@@ -553,11 +553,11 @@ ARM Macro Assembler    Page 9
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
 ork --depend=.\output\startup_stm32f10x_hd.d -o.\output\startup_stm32f10x_hd.o 
--IH:\OpenProgrammingModuleForMCU\15-用数据缓存处理串口接收的数据\STM32F10xTempl
-ate\Progect\RTE -IE:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include -IE:
-\MDK5\ARM\CMSIS\Include --predefine="__MICROLIB SETA 1" --predefine="__UVISION_
-VERSION SETA 514" --predefine="STM32F10X_MD SETA 1" --list=.\listing\startup_st
-m32f10x_hd.lst ..\Startup\startup_stm32f10x_hd.s
+-IH:\OpenProgrammingModuleForMCU\15-给串口接收,发送数据都使用上缓存管理吧\STM32
+F10xTemplate\Progect\RTE -IE:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Inc
+lude -IE:\MDK5\ARM\CMSIS\Include --predefine="__MICROLIB SETA 1" --predefine="_
+_UVISION_VERSION SETA 514" --predefine="STM32F10X_MD SETA 1" --list=.\listing\s
+tartup_stm32f10x_hd.lst ..\Startup\startup_stm32f10x_hd.s
 
 
 

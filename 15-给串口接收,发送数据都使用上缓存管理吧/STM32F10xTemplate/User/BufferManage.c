@@ -33,6 +33,7 @@ buff_manage_struct buff_manage_struct2;
 **/
 int32_t BufferManageCreate(buff_manage_struct *bms,void *buff,uint32_t BuffLen,void *ManageBuff,uint32_t ManageBuffLen)
 {
+	__disable_irq();
 	rbCreate(&(bms->Buff),buff,BuffLen);
 	rbCreate(&(bms->ManageBuff),ManageBuff,ManageBuffLen);
 	
@@ -42,6 +43,7 @@ int32_t BufferManageCreate(buff_manage_struct *bms,void *buff,uint32_t BuffLen,v
 	bms->ReadLen=0;
 	bms->SendFlage=0;
 	bms->SendLen=0;
+	__enable_irq();
 	return 0;
 }
 
@@ -57,17 +59,22 @@ int32_t BufferManageCreate(buff_manage_struct *bms,void *buff,uint32_t BuffLen,v
 **/
 int32_t BufferManageWrite(buff_manage_struct *bms,void *buff,uint32_t BuffLen)
 {
+	int value;
+	__disable_irq();
 	if(rbCanWrite(&(bms->Buff))>BuffLen)//可以写入数据
 	{
 		if(rbCanWrite(&(bms->ManageBuff))>4)//可以记录数据个数
 		{			
 			PutData(&(bms->Buff) ,buff, BuffLen);
 			PutData(&(bms->ManageBuff) ,&BuffLen, 4);
-			return 0;
+			value = 0;
 		}
-		else  return -2;
+		else{value = -2;}
 	}
-	else return -3;
+	else {value = -3;}
+	__enable_irq();
+	
+	return value;
 }
 
 
@@ -82,15 +89,19 @@ int32_t BufferManageWrite(buff_manage_struct *bms,void *buff,uint32_t BuffLen)
 **/
 int32_t BufferManageRead(buff_manage_struct *bms,void *buff)
 {
+	int32_t value=0;
+	__disable_irq();
+	
 	if(rbCanRead(&(bms->ManageBuff))>=4)
 	{
 		rbRead(&(bms->ManageBuff), &(bms->Len) , 4);//读出来存入的数据个数
 		if(bms->Len>0)
 		{
-			return rbRead(&(bms->Buff),buff, bms->Len);
+			value = rbRead(&(bms->Buff),buff, bms->Len); 
 		}
 	}
-	return 0;
+	__enable_irq();
+	return value;
 }
 
 
