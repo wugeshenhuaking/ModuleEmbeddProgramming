@@ -1,5 +1,0 @@
-"main.obj",
-"time.obj",
-"usart.obj" 
-TO "Project" 
-RAMSIZE(256) 
