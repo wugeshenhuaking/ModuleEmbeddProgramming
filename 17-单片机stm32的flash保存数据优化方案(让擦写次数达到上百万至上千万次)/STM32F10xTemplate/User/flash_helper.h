@@ -7,13 +7,15 @@
 #define FLASH_HELPER_Cx_
 #endif
 #include "stm32f10x.h"
+#include "stmflash.h"
+
 
 /*默认擦写寿命*/
 /*FlashHelperMaxLen/FlashHelperDataLen*4*Flash擦写次数*/
 /*510/20*4*10000 = 100万次*/
 /*1022/20*4*10000 = 204万次*/
 
-#define FlashHelperDebug  
+//#define FlashHelperDebug  
 
 #if STM32_FLASH_SIZE<256  //Flash容量
 #define FlashHelperMaxLen 510

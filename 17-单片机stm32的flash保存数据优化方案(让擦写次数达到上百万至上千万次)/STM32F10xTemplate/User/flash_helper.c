@@ -3,6 +3,7 @@
   * @author  feng wu yang
   * @version V1.0.0  
 	* @version V1.0.1 修改  FlashHelperUpdate 中获取尾部数据bug
+	* @version V1.1.0 修改  FlashHelperUpdate 中获取尾部数据bug
   * @date    2020/09/02
   * @brief   flash 分区轮训存储(用于提高flash使用寿命)
 	* @document https://www.cnblogs.com/yangfengwu/p/13616968.html
@@ -36,7 +37,7 @@ void FlashHelperWriteDataEx(u32 addr,u16 *data, u16 datalen)
 //擦除
 char FlashHelperErasePageEx(u32 EraseAddress,u16 PageCnt)
 {
-	FlashErasePage(EraseAddress,PageCnt);
+	FlashErasePages(EraseAddress,PageCnt);
 }
 
 /**
@@ -372,9 +373,10 @@ void FlashHelperUpdate(void)
 			flash_helper_struct.FlashHelperFlashAddrCopy = flash_helper_struct.FlashHelperFlashAddr;//存储到此页
 		}
 		flash_helper_struct.FlashHelperFlashAddr = flash_helper_struct.FlashHelperFlashAddr + (FlashHelperDataLen<<1);
-		
 		FlashHelperWriteDataEx(flash_helper_struct.FlashHelperFlashAddrCopy,flash_helper_struct.FlashHelperData,FlashHelperDataLen);
-		
+		#ifdef FlashHelperDebug
+		printf("\r\n FlashHelperFlashAddr: 0x%x",flash_helper_struct.FlashHelperFlashAddr);
+		#endif
 		/*擦除上一页*/
 		FlashHelperReadDataEx(flash_helper_struct.FlashHelperPageAddr[3],&a,1);//首地址数据
 		FlashHelperReadDataEx(flash_helper_struct.FlashHelperPageAddr[3]+(flash_helper_struct.FlashHelperTail<<1)-2,&b,1);//尾地址数据
@@ -394,6 +396,9 @@ void FlashHelperUpdate(void)
 		//此页不够存储
 		if((flash_helper_struct.FlashHelperFlashAddr + (FlashHelperDataLen<<1)) > (flash_helper_struct.FlashHelperPageAddr[1]+(FlashHelperMaxLen<<1)))
 		{
+			#ifdef FlashHelperDebug
+			printf("\r\n FlashHelperMaxLen=%d\r\n",FlashHelperMaxLen);
+			#endif
 			flash_helper_struct.FlashHelperFlashAddr = flash_helper_struct.FlashHelperPageAddr[2];//存储到第2页
 			flash_helper_struct.FlashHelperFlashAddrCopy = flash_helper_struct.FlashHelperFlashAddr;
 		}
@@ -402,13 +407,22 @@ void FlashHelperUpdate(void)
 			flash_helper_struct.FlashHelperFlashAddrCopy = flash_helper_struct.FlashHelperFlashAddr;//存储到此页
 		}
 		flash_helper_struct.FlashHelperFlashAddr = flash_helper_struct.FlashHelperFlashAddr + (FlashHelperDataLen<<1);
-		
 		FlashHelperWriteDataEx(flash_helper_struct.FlashHelperFlashAddrCopy,flash_helper_struct.FlashHelperData,FlashHelperDataLen);
+		
+		#ifdef FlashHelperDebug
+		printf("\r\n FlashHelperFlashAddr: 0x%x",flash_helper_struct.FlashHelperFlashAddr);
+		#endif
+		
 		/*擦除上一页*/
 		FlashHelperReadDataEx(flash_helper_struct.FlashHelperPageAddr[0],&a,1);//首地址数据
 		FlashHelperReadDataEx(flash_helper_struct.FlashHelperPageAddr[0]+(flash_helper_struct.FlashHelperTail<<1)-2,&b,1);//尾地址数据
 		if(a != 0xFFFF || b != 0xFFFF)
 		{
+			#ifdef FlashHelperDebug
+			printf("\r\n TailAddr: 0x%x",flash_helper_struct.FlashHelperPageAddr[0]+(flash_helper_struct.FlashHelperTail<<1)-2);
+			#endif
+			
+			
 			#ifdef FlashHelperDebug
 			printf("\r\n ErasePag0\r\n");
 			#endif
@@ -432,11 +446,20 @@ void FlashHelperUpdate(void)
 		}
 		flash_helper_struct.FlashHelperFlashAddr = flash_helper_struct.FlashHelperFlashAddr + (FlashHelperDataLen<<1);
 		FlashHelperWriteDataEx(flash_helper_struct.FlashHelperFlashAddrCopy,flash_helper_struct.FlashHelperData,FlashHelperDataLen);
+		
+		#ifdef FlashHelperDebug
+		printf("\r\n FlashHelperFlashAddr: 0x%x",flash_helper_struct.FlashHelperFlashAddr);
+		#endif
+		
 		/*擦除上一页*/
 		FlashHelperReadDataEx(flash_helper_struct.FlashHelperPageAddr[1],&a,1);//首地址数据
 		FlashHelperReadDataEx(flash_helper_struct.FlashHelperPageAddr[1]+(flash_helper_struct.FlashHelperTail<<1)-2,&b,1);//尾地址数据
 		if(a != 0xFFFF || b != 0xFFFF)
 		{
+			#ifdef FlashHelperDebug
+			printf("\r\n TailAddr: 0x%x",flash_helper_struct.FlashHelperPageAddr[1]+(flash_helper_struct.FlashHelperTail<<1)-2);
+			#endif
+			
 			#ifdef FlashHelperDebug
 			printf("\r\n ErasePag1\r\n");
 			#endif
@@ -457,6 +480,11 @@ void FlashHelperUpdate(void)
 		}
 		flash_helper_struct.FlashHelperFlashAddr = flash_helper_struct.FlashHelperFlashAddr + (FlashHelperDataLen<<1);
 		FlashHelperWriteDataEx(flash_helper_struct.FlashHelperFlashAddrCopy,flash_helper_struct.FlashHelperData,FlashHelperDataLen);
+		
+		#ifdef FlashHelperDebug
+		printf("\r\n FlashHelperFlashAddr: 0x%x",flash_helper_struct.FlashHelperFlashAddr);
+		#endif
+		
 		/*擦除上一页*/
 		FlashHelperReadDataEx(flash_helper_struct.FlashHelperPageAddr[2],&a,1);//首地址数据
 		FlashHelperReadDataEx(flash_helper_struct.FlashHelperPageAddr[2]+(flash_helper_struct.FlashHelperTail<<1)-2,&b,1);//尾地址数据

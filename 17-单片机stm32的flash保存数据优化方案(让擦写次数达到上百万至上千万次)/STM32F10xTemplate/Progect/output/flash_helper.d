@@ -31,6 +31,3 @@
 .\output\flash_helper.o: ..\Libraries\inc\stm32f10x_wwdg.h
 .\output\flash_helper.o: ..\Libraries\inc\misc.h
 .\output\flash_helper.o: ..\User\stmflash.h
-.\output\flash_helper.o: ..\User\usart.h
-.\output\flash_helper.o: ..\User\BufferManage.h
-.\output\flash_helper.o: ..\User\LoopList.h

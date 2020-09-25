@@ -9,12 +9,33 @@
 
 #define STM32_FLASH_BASE 0x8000000 	//STM32 FLASHµÄÆðÊ¼µØÖ·
 
-//Êý¾Ý´æ´¢µØÖ·
-#define FLASH_DATA_ADDR_1  (STM32_FLASH_BASE+1024*60)
-#define FLASH_DATA_ADDR_2  (STM32_FLASH_BASE+1024*61)
-#define FLASH_DATA_ADDR_3  (STM32_FLASH_BASE+1024*62)
-#define FLASH_DATA_ADDR_4  (STM32_FLASH_BASE+1024*63)
-
+//Êý¾Ý´æ´¢µØÖ·(Ä¬ÈÏ´æ´¢µ½×îºó4Ò³)
+#if STM32_FLASH_SIZE == 64 //1KBÃ¿Ò³
+	#define FLASH_DATA_ADDR_1  (STM32_FLASH_BASE+1024*60)
+	#define FLASH_DATA_ADDR_2  (STM32_FLASH_BASE+1024*61)
+	#define FLASH_DATA_ADDR_3  (STM32_FLASH_BASE+1024*62)
+	#define FLASH_DATA_ADDR_4  (STM32_FLASH_BASE+1024*63)
+#elif STM32_FLASH_SIZE == 128 //1KBÃ¿Ò³
+	#define FLASH_DATA_ADDR_1  (STM32_FLASH_BASE+1024*124)
+	#define FLASH_DATA_ADDR_2  (STM32_FLASH_BASE+1024*125)
+	#define FLASH_DATA_ADDR_3  (STM32_FLASH_BASE+1024*126)
+	#define FLASH_DATA_ADDR_4  (STM32_FLASH_BASE+1024*127)
+#elif STM32_FLASH_SIZE == 256 //2KBÃ¿Ò³
+	#define FLASH_DATA_ADDR_1  (STM32_FLASH_BASE+1024*248)
+	#define FLASH_DATA_ADDR_2  (STM32_FLASH_BASE+1024*250)
+	#define FLASH_DATA_ADDR_3  (STM32_FLASH_BASE+1024*252)
+	#define FLASH_DATA_ADDR_4  (STM32_FLASH_BASE+1024*254)
+#elif STM32_FLASH_SIZE == 512 //2KBÃ¿Ò³	
+	#define FLASH_DATA_ADDR_1  (STM32_FLASH_BASE+1024*504)
+	#define FLASH_DATA_ADDR_2  (STM32_FLASH_BASE+1024*506)
+	#define FLASH_DATA_ADDR_3  (STM32_FLASH_BASE+1024*508)
+	#define FLASH_DATA_ADDR_4  (STM32_FLASH_BASE+1024*510)
+#else
+	#define FLASH_DATA_ADDR_1  (STM32_FLASH_BASE+1024*(STM32_FLASH_SIZE-4))
+	#define FLASH_DATA_ADDR_2  (STM32_FLASH_BASE+1024*(STM32_FLASH_SIZE-3))
+	#define FLASH_DATA_ADDR_3  (STM32_FLASH_BASE+1024*(STM32_FLASH_SIZE-2))
+	#define FLASH_DATA_ADDR_4  (STM32_FLASH_BASE+1024*(STM32_FLASH_SIZE-1))
+#endif
 
 u16 STMFLASH_ReadHalfWord(u32 faddr);		  //¶Á³ö°ë×Ö  
 void STMFLASH_WriteLenByte(u32 WriteAddr,u32 DataToWrite,u16 Len);	//Ö¸¶¨µØÖ·¿ªÊ¼Ð´ÈëÖ¸¶¨³¤¶ÈµÄÊý¾Ý
@@ -24,6 +45,7 @@ void STMFLASH_Read(u32 ReadAddr,u16 *pBuffer,u16 NumToRead);   		//´ÓÖ¸¶¨µØÖ·¿ªÊ
 
 char WriteFlashHalfWord(uint32_t WriteAddress,u16 data);
 char FlashErasePage(uint32_t EraseAddress,u16 PageCnt);	
+char FlashErasePages(uint32_t EraseAddress,u16 PageCnt);
 void WriteFlashHalfWords(u32 WriteAddr,u16 *pBuffer,u16 NumToWrite);
 #endif
 

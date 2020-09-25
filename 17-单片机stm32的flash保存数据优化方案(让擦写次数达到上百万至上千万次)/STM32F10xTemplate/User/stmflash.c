@@ -163,13 +163,13 @@ void STMFLASH_Read(u32 ReadAddr,u16 *pBuffer,u16 NumToRead)
 
 
 /**
-* @brief  擦除Flash
-* @waing  
+* @brief  擦除Flash  
 * @param  EraseAddress  擦除的地址
-* @param  PageCnt       擦除连续的几页
+* @param  PageCnt       擦除连续的几页(一页按照1024计算)
 * @param  None
 * @retval 4:成功
 * @example 
+* @waing  如果芯片的Flash是按照2048分页,擦除1页第二个参数应该填写2
 **/
 char FlashErasePage(uint32_t EraseAddress,u16 PageCnt)
 {
@@ -192,4 +192,37 @@ char FlashErasePage(uint32_t EraseAddress,u16 PageCnt)
 	}	
 	return FlashStatus;
 } 
+
+
+
+/**
+* @brief  擦除Flash  
+* @param  EraseAddress  擦除的地址
+* @param  PageCnt       擦除连续的几页
+* @param  None
+* @retval 4:成功
+* @example 
+* @waing  
+**/
+char FlashErasePages(uint32_t EraseAddress,u16 PageCnt)
+{
+	u32 i=0;
+	u32 secpos;	   //扇区地址
+	if(EraseAddress<STM32_FLASH_BASE||(EraseAddress>=(STM32_FLASH_BASE+1024*STM32_FLASH_SIZE)))return 0;//非法地址
+	secpos = EraseAddress-STM32_FLASH_BASE;//实际地址
+	secpos = secpos/STM_SECTOR_SIZE;//扇区地址 
+//	if(STM_SECTOR_SIZE==2048){PageCnt=PageCnt/2;}
+	if(FLASH_GetStatus() == FLASH_COMPLETE)//可以操作Flash
+	{
+		FLASH_Unlock();
+		for(i=0;i<PageCnt;i++)
+		{
+			FlashStatus = FLASH_ErasePage(secpos*STM_SECTOR_SIZE+STM32_FLASH_BASE);//擦除这个扇区
+			if(FlashStatus != FLASH_COMPLETE) break;
+			secpos++;
+		}
+		FLASH_Lock();//上锁
+	}	
+	return FlashStatus;
+}
 

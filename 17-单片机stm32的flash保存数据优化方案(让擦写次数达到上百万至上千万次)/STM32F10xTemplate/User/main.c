@@ -36,7 +36,8 @@ void PVD_IRQHandler(void)
 	EXTI->PR |=1<<16;//???   
 	if (((PWR->CSR)&(1<<2))!=0)
 	{
-		printf("11111111111122222222223333333\r\n");
+		flash_helper_struct.FlashHelperData[1] = 30;
+		FlashHelperUpdate();//刷新
 	}        
 }
 
@@ -48,12 +49,12 @@ int main(void)
   NVIC_Configuration();
 	uart_init(115200,115200);	 //串口初始化为115200
 	GpioInit();
-
+	
 	DelayInit();
 	
 	printf("start\r\n");
 	
-	PWR_PVD_Init();//测试掉电存储
+	PWR_PVD_Init();//测试掉电存储(vbat需要加电池)
 	
 	/*初始化存储*/
 	FlashHelperInit(FLASH_DATA_ADDR_1,FLASH_DATA_ADDR_2,FLASH_DATA_ADDR_3,FLASH_DATA_ADDR_4);
@@ -69,11 +70,10 @@ int main(void)
 	
 	printf("获取的数据:%d\r\n",data);
 	
-
 	
 	while(1)
 	{
-		IWDG_Feed();//喂狗
+		
 	}
 }
 
