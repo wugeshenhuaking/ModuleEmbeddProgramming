@@ -1,0 +1,16 @@
+.\output\asn1write.o: ..\Mbedtls\library\asn1write.c
+.\output\asn1write.o: ..\Mbedtls\include\mbedtls/config.h
+.\output\asn1write.o: ..\Mbedtls\include\mbedtls/check_config.h
+.\output\asn1write.o: E:\MDK5\ARM\ARMCC\Bin\..\include\limits.h
+.\output\asn1write.o: ..\Mbedtls\include\mbedtls/asn1write.h
+.\output\asn1write.o: ..\Mbedtls\include\mbedtls/asn1.h
+.\output\asn1write.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
+.\output\asn1write.o: ..\Mbedtls\include\mbedtls/bignum.h
+.\output\asn1write.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\asn1write.o: ..\Mbedtls\include\mbedtls/error.h
+.\output\asn1write.o: E:\MDK5\ARM\ARMCC\Bin\..\include\string.h
+.\output\asn1write.o: ..\Mbedtls\include\mbedtls/platform.h
+.\output\asn1write.o: ..\Mbedtls\include\mbedtls/platform_time.h
+.\output\asn1write.o: E:\MDK5\ARM\ARMCC\Bin\..\include\time.h
+.\output\asn1write.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
+.\output\asn1write.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h

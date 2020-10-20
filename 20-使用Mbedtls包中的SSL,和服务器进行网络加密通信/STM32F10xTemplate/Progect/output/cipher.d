@@ -1,0 +1,17 @@
+.\output\cipher.o: ..\Mbedtls\library\cipher.c
+.\output\cipher.o: ..\Mbedtls\include\mbedtls/config.h
+.\output\cipher.o: ..\Mbedtls\include\mbedtls/check_config.h
+.\output\cipher.o: E:\MDK5\ARM\ARMCC\Bin\..\include\limits.h
+.\output\cipher.o: ..\Mbedtls\include\mbedtls/cipher.h
+.\output\cipher.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
+.\output\cipher.o: ..\Mbedtls\include\mbedtls/platform_util.h
+.\output\cipher.o: ..\Mbedtls\include\mbedtls/cipher_internal.h
+.\output\cipher.o: ..\Mbedtls\include\mbedtls/error.h
+.\output\cipher.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\output\cipher.o: E:\MDK5\ARM\ARMCC\Bin\..\include\string.h
+.\output\cipher.o: ..\Mbedtls\include\mbedtls/gcm.h
+.\output\cipher.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\cipher.o: ..\Mbedtls\include\mbedtls/platform.h
+.\output\cipher.o: ..\Mbedtls\include\mbedtls/platform_time.h
+.\output\cipher.o: E:\MDK5\ARM\ARMCC\Bin\..\include\time.h
+.\output\cipher.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdio.h

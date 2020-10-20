@@ -1,0 +1,10 @@
+.\output\sha256.o: ..\Mbedtls\library\sha256.c
+.\output\sha256.o: ..\Mbedtls\include\mbedtls/config.h
+.\output\sha256.o: ..\Mbedtls\include\mbedtls/check_config.h
+.\output\sha256.o: E:\MDK5\ARM\ARMCC\Bin\..\include\limits.h
+.\output\sha256.o: ..\Mbedtls\include\mbedtls/sha256.h
+.\output\sha256.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
+.\output\sha256.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\sha256.o: ..\Mbedtls\include\mbedtls/platform_util.h
+.\output\sha256.o: ..\Mbedtls\include\mbedtls/error.h
+.\output\sha256.o: E:\MDK5\ARM\ARMCC\Bin\..\include\string.h

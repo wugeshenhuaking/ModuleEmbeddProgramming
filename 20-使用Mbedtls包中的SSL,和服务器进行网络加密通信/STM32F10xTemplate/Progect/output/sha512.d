@@ -1,0 +1,10 @@
+.\output\sha512.o: ..\Mbedtls\library\sha512.c
+.\output\sha512.o: ..\Mbedtls\include\mbedtls/config.h
+.\output\sha512.o: ..\Mbedtls\include\mbedtls/check_config.h
+.\output\sha512.o: E:\MDK5\ARM\ARMCC\Bin\..\include\limits.h
+.\output\sha512.o: ..\Mbedtls\include\mbedtls/sha512.h
+.\output\sha512.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
+.\output\sha512.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\sha512.o: ..\Mbedtls\include\mbedtls/platform_util.h
+.\output\sha512.o: ..\Mbedtls\include\mbedtls/error.h
+.\output\sha512.o: E:\MDK5\ARM\ARMCC\Bin\..\include\string.h

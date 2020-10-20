@@ -1,0 +1,9 @@
+.\output\error.o: ..\Mbedtls\library\error.c
+.\output\error.o: ..\Mbedtls\include\mbedtls/config.h
+.\output\error.o: ..\Mbedtls\include\mbedtls/check_config.h
+.\output\error.o: E:\MDK5\ARM\ARMCC\Bin\..\include\limits.h
+.\output\error.o: ..\Mbedtls\include\mbedtls/platform.h
+.\output\error.o: ..\Mbedtls\include\mbedtls/platform_time.h
+.\output\error.o: E:\MDK5\ARM\ARMCC\Bin\..\include\time.h
+.\output\error.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
+.\output\error.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h

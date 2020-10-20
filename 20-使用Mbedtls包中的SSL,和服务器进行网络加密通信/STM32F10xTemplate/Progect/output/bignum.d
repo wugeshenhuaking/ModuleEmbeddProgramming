@@ -1,0 +1,16 @@
+.\output\bignum.o: ..\Mbedtls\library\bignum.c
+.\output\bignum.o: ..\Mbedtls\include\mbedtls/config.h
+.\output\bignum.o: ..\Mbedtls\include\mbedtls/check_config.h
+.\output\bignum.o: E:\MDK5\ARM\ARMCC\Bin\..\include\limits.h
+.\output\bignum.o: ..\Mbedtls\include\mbedtls/bignum.h
+.\output\bignum.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
+.\output\bignum.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\bignum.o: ..\Mbedtls\include\mbedtls/bn_mul.h
+.\output\bignum.o: ..\Mbedtls\include\mbedtls/platform_util.h
+.\output\bignum.o: ..\Mbedtls\include\mbedtls/error.h
+.\output\bignum.o: E:\MDK5\ARM\ARMCC\Bin\..\include\string.h
+.\output\bignum.o: ..\Mbedtls\include\mbedtls/platform.h
+.\output\bignum.o: ..\Mbedtls\include\mbedtls/platform_time.h
+.\output\bignum.o: E:\MDK5\ARM\ARMCC\Bin\..\include\time.h
+.\output\bignum.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
+.\output\bignum.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h

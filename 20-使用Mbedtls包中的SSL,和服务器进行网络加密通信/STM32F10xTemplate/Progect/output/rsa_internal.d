@@ -1,0 +1,10 @@
+.\output\rsa_internal.o: ..\Mbedtls\library\rsa_internal.c
+.\output\rsa_internal.o: ..\Mbedtls\include\mbedtls/config.h
+.\output\rsa_internal.o: ..\Mbedtls\include\mbedtls/check_config.h
+.\output\rsa_internal.o: E:\MDK5\ARM\ARMCC\Bin\..\include\limits.h
+.\output\rsa_internal.o: ..\Mbedtls\include\mbedtls/rsa.h
+.\output\rsa_internal.o: ..\Mbedtls\include\mbedtls/bignum.h
+.\output\rsa_internal.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
+.\output\rsa_internal.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\rsa_internal.o: ..\Mbedtls\include\mbedtls/md.h
+.\output\rsa_internal.o: ..\Mbedtls\include\mbedtls/rsa_internal.h

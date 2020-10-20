@@ -1,0 +1,11 @@
+.\output\gcm.o: ..\Mbedtls\library\gcm.c
+.\output\gcm.o: ..\Mbedtls\include\mbedtls/config.h
+.\output\gcm.o: ..\Mbedtls\include\mbedtls/check_config.h
+.\output\gcm.o: E:\MDK5\ARM\ARMCC\Bin\..\include\limits.h
+.\output\gcm.o: ..\Mbedtls\include\mbedtls/gcm.h
+.\output\gcm.o: ..\Mbedtls\include\mbedtls/cipher.h
+.\output\gcm.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
+.\output\gcm.o: ..\Mbedtls\include\mbedtls/platform_util.h
+.\output\gcm.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\gcm.o: ..\Mbedtls\include\mbedtls/error.h
+.\output\gcm.o: E:\MDK5\ARM\ARMCC\Bin\..\include\string.h

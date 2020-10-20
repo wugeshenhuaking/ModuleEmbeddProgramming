@@ -1,0 +1,10 @@
+.\output\md5.o: ..\Mbedtls\library\md5.c
+.\output\md5.o: ..\Mbedtls\include\mbedtls/config.h
+.\output\md5.o: ..\Mbedtls\include\mbedtls/check_config.h
+.\output\md5.o: E:\MDK5\ARM\ARMCC\Bin\..\include\limits.h
+.\output\md5.o: ..\Mbedtls\include\mbedtls/md5.h
+.\output\md5.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stddef.h
+.\output\md5.o: E:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
+.\output\md5.o: ..\Mbedtls\include\mbedtls/platform_util.h
+.\output\md5.o: ..\Mbedtls\include\mbedtls/error.h
+.\output\md5.o: E:\MDK5\ARM\ARMCC\Bin\..\include\string.h
