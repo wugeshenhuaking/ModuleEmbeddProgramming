@@ -228,11 +228,11 @@ void ssl_int(void)
 			mbedtls_printf( " failed\n  ! mbedtls_ssl_setup returned 0x%x\r\n", -ret );
 	}
 
-	// 设置host name 用到动态内存分配
-	if( ( ret = mbedtls_ssl_set_hostname( &ssl, "替换自己的域名" ) ) != 0 )
-	{
-			mbedtls_printf( " failed\n  ! mbedtls_ssl_set_hostname returned %d\r\n", ret );
-	}
+	// 设置host name 用到动态内存分配(单向认证可以屏蔽)
+//	if( ( ret = mbedtls_ssl_set_hostname( &ssl, "替换自己证书的CN字段的值" ) ) != 0 )
+//	{
+//			mbedtls_printf( " failed\n  ! mbedtls_ssl_set_hostname returned %d\r\n", ret );
+//	}
 	// 设置发送和接收接口
 	mbedtls_ssl_set_bio( &ssl, NULL, custom_ssl_send, custom_ssl_recv, NULL );
 }
