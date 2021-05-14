@@ -7,6 +7,10 @@
 #else
 #define __MAIN_EXT_
 #endif
-__MAIN_EXT_ int maindelay;
+
+#define main_buff_len 500
+
+__MAIN_EXT_ char main_buff[main_buff_len];
+__MAIN_EXT_ int  main_len;
 
 #endif

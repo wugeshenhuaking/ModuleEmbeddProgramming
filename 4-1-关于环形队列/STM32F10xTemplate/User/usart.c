@@ -11,7 +11,6 @@
 #define USART_C_
 #include <stdio.h>
 #include "usart.h"
-#include "mqtt.h"
 
 
 /****************************´®¿Ú1****************************/

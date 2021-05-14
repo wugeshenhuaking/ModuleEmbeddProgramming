@@ -4,7 +4,7 @@
   * @author  fengwu yang
   * @version V1.0.0
   * @date    2019/10/12
-  * @brief   
+  * @brief   https://www.cnblogs.com/yangfengwu/p/11674814.html
   ******************************************************************************
 	一,使用说明
 		1,把以下程序放在1ms定时器中断中
@@ -14,12 +14,11 @@
 		while(1)
 		{
 			ConfigModuleNoBlock();//配置模块
-			if(串口接收到一条完整的数据标志)
+			
+			if(串口接收到一条完整的数据)
 			{
-			  清零 串口接收到一条完整的数据标志
-				if(ConfigConnectDispose != NULL)
-				{
-					ConfigConnectDispose(Usart1ReadBuff);//处理模块返回的数据
+				if(ConfigConnectDispose != NULL){
+					ConfigConnectDispose(接收的数据地址,接收的数据个数);
 				}
 			}
 		}
@@ -29,13 +28,17 @@
 
 
 #define CONFIGMODULENOBLOCK_C_
-#include "include.h"
+#include <stdio.h>
+#include <string.h>
+#include "ConfigModuleNoBlock.h"
+#include "usart.h"
 
-u32 ConfigModuleNoBlockCnt =0;        //配置函数延时变量,定时器内部累加
+
+u32 ConfigModuleNoBlockCnt =0;   //配置函数延时变量,定时器内部累加
 int ConfigModuleNoBlockCaseValue = 0; //控制执行哪一条Case 语句
 char ConfigModuleNoBlockFlage  = 0;   //1-配置完连接 0-未配置完连接
 
-u32 CompareValue=1500;                //每隔 Ms 发送一次数据
+u32 CompareValue=5000;                //每隔 Ms 发送一次数据
 u32 SendNextDelay =0;                 //接收SendConfigFunction函数最后一个参数,最终传递给 ConfigModuleNoBlockCnt 控制写一条数据发送的时间
 int Cnt = 0;                          //记录运行状态发送的次数
 char DataReturnFlage  = 0;            //是否返回了预期的数据
@@ -43,7 +46,11 @@ char DataReturnFlage  = 0;            //是否返回了预期的数据
 char HopeReturnData1[20]="";//存储希望返回的数据
 char HopeReturnData2[20]="";//存储希望返回的数据
 
-void (*ConfigConnectDispose)(char *data);//定义一个函数指针变量,用来处理模块返回的数据
+void (*ConfigConnectDispose)(char *data,int len);//定义一个函数指针变量,用来处理模块返回的数据
+void ConfigModuleRunNext(int delay);
+/*********************************************************************************************************/
+
+
 
 
 /**
@@ -55,7 +62,6 @@ void (*ConfigConnectDispose)(char *data);//定义一个函数指针变量,用来处理模块返回
 * @retval None
 * @example 
 **/
-
 void ConfigModuleNoBlock(void)
 {
 	if(ConfigModuleNoBlockCnt>CompareValue && ConfigModuleNoBlockFlage==0)
@@ -78,13 +84,32 @@ void ConfigModuleNoBlock(void)
 		}
 		switch(ConfigModuleNoBlockCaseValue)
 		{
-			case 0://串口发送AT+RST\r\n  如果串口返回OK 执行下一条
-				SendConfigFunction("AT+RST\r\n",NULL,"OK","",FunctionParseCompare,CompareValue);break;
-						
+			case 0:
+				break;
 			default: 
-				printf("配置完成!\r\n");DataReturnFlage=0; ConfigModuleNoBlockFlage=1; break;
+				SendConfigFunction(NULL,NULL,NULL,NULL,NULL,CompareValue);//这句必须加,清除所有的执行函数
+				DataReturnFlage=0; 
+				ConfigModuleNoBlockFlage=1; break;
 		}
 	}
+}
+
+
+/**
+* @brief  执行下一条
+* @param  delay 延时多少时间再执行下一条
+* @param  
+* @retval 
+* @example 
+延时500ms再执行下一条 case 语句,(注意,最大延时为 CompareValue)
+ConfigModuleRunNext(CompareValue-500);
+立即执行下一条 case语句
+ConfigModuleRunNext(CompareValue);
+**/
+void ConfigModuleRunNext(int delay){
+	SendNextDelay = delay;
+	DataReturnFlage=1;
+	ConfigModuleNoBlockCnt = (SendNextDelay == 0 ? ConfigModuleNoBlockCnt:SendNextDelay);
 }
 
 
@@ -99,7 +124,7 @@ void ConfigModuleNoBlock(void)
 * @retval 
 * @example 
 **/
-void SendConfigFunction(char *order,void (*FunctionSend)(),char *HopeReturn1,char *HopeReturn2,void (*FunctionParse)(char *data),u32 ConfigFunctionValue)
+void SendConfigFunction(char *order,void (*FunctionSend)(),char *HopeReturn1,char *HopeReturn2,void (*FunctionParse)(char *data,int len),u32 ConfigFunctionValue)
 {
 	memset(HopeReturnData1,NULL,strlen(HopeReturnData1));
 	memset(HopeReturnData2,NULL,strlen(HopeReturnData2));
@@ -110,7 +135,10 @@ void SendConfigFunction(char *order,void (*FunctionSend)(),char *HopeReturn1,cha
 	ConfigConnectDispose = FunctionParse;//传递处理函数指针
 	SendNextDelay = ConfigFunctionValue;//如果上一条数据处理成功,控制发送下一条数据的时间
 	
-	if(order!=NULL)printf("%s",order);//直接发送命令
+	if(order!=NULL){
+		/*根据和模组通信的端口替换下面的发送数据函数*/
+		UsartOutStr(USART1,(unsigned char*)order,strlen(order));//发送的数据
+	}
 }
 
 
@@ -121,7 +149,7 @@ void SendConfigFunction(char *order,void (*FunctionSend)(),char *HopeReturn1,cha
 * @retval 
 * @example 
 **/
-void FunctionParseCompare(char *data)
+void FunctionParseCompare(char *data,int len)
 {
 	if(strlen(HopeReturnData1) != 0 && strstr(data, HopeReturnData1))
 	{

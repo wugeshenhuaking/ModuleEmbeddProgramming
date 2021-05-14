@@ -2,53 +2,78 @@
   ******************************************************************************
   * @author  yang feng wu 
   * @version V1.0.0
-  * @date    2019/10/12
-  * @brief   
+  * @date    2020/10/10
+  * @brief   main
   ******************************************************************************
+  ******************************************************************************
+*/
 	
-  ******************************************************************************
-  */
-#include "include.h"
+#include "main.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "mcu_sys.h"
+#include "delay.h"
+#include "timer.h"
+#include "usart.h"
+#include "ConfigModuleNoBlock.h"
 
-int maindelay=0;
+char main_buff[main_buff_len];
+int  main_len;
+
+int usart1_read_len;
 int main(void)
 {
+	char data_read;
   NVIC_Configuration();
-	uart_init(115200);	 //串口初始化为115200
-	GpioInit();
-	DelayInit();
-	rbCreate(&Uart1rb,Usart1SendBuff,Usart1SendLen);//创建环形队列--串口1
-	
-//	ConfigModuleNoBlockFlage = 1;//不让配置函数执行
-	
+	usart_init(115200,115200,115200);	 //串口初始化
+	delay_init();
+	timer2_init();
+	//不执行框架配置模组
+	ConfigModuleNoBlockFlage = 1;
 	while(1)
 	{
-		ConfigModuleNoBlock();//配置模块
-		if(Usart1ReadFlage)//串口接收到一条数据
+		/*配置完模组*/
+		if(ConfigModuleNoBlockFlage)
 		{
-			Usart1ReadFlage=0;
-			if(ConfigConnectDispose != NULL)
-			{
-			  ConfigConnectDispose(Usart1ReadBuff);//处理模块返回的数据
-			}
-			
-			if(ConfigModuleNoBlockFlage == 1)//一开始是配置成功的
-			{
-				if(strstr(Usart1ReadBuff,"CLOSED"))//接收到CLOSED,设备连接出现问题
-				{
-					ConfigModuleNoBlockFlage=0;
-					ConfigModuleNoBlockCaseValue=0;
-				}
-			}
-			memset(Usart1ReadBuff,0,Usart1ReadCntCopy);
+			/*执行其它程序*/
 		}
 		
+		ConfigModuleNoBlock();//配置模块
 		
-		if(maindelay>=500)//证明主程序一直在运行
+		//串口接收数据出现空闲
+		if(usart1_idle_flag)
 		{
-			maindelay =0 ;
-			PCout(13) = ~PCout(13);
+			usart1_idle_flag = 0;
+			//读取串口接收的数据个数
+			usart1_read_len = rbCanRead(&rb_t_usart1_read);
+			//读取接收的数据,数据读取到 usart1_read_buff_copy 数组
+			memset(usart1_read_buff_copy,0,rb_t_usart1_read_buff_len);
+			rbRead(&rb_t_usart1_read,usart1_read_buff_copy,usart1_read_len);
+			
+			//可以在这里判断模组返回的数据有没有问题
+			//如果有问题就重新配置模组
+			//下面是假设模组返回了 disconnect 就需要重新配置模组
+			if(strstr((char*)usart1_read_buff_copy,"disconnect")){
+				ConfigModuleNoBlockFlage=0;
+				ConfigModuleNoBlockCaseValue=0;
+			}
+			
+			if(ConfigConnectDispose != NULL){
+				ConfigConnectDispose((char*)usart1_read_buff_copy,usart1_read_len);
+			}
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
 

@@ -2,15 +2,15 @@
 #define __DELAY_H_
 #include "stm32f10x.h"
 #ifndef __DELAY_C_
-#define __DELAY_C_  extern
+#define __DELAY_Ex_  extern
 #else 
-#define __DELAY_C_
+#define __DELAY_Ex_
 #endif
 
 
-__DELAY_C_ u32 SysTickLedTime;
+void delay_ms(u16 nms);
+void delay_us(u32 nus);
 
-void DelayInit(void);
-void delay_ms(u16 ms);
+void delay_init(void);
 
 #endif

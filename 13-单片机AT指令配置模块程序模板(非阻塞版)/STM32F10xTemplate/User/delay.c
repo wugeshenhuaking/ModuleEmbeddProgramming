@@ -1,62 +1,42 @@
 #define __DELAY_C_
-#include "include.h"
-u32 SysTickCntMs = 0;//延时函数使用
+#include "delay.h"
 
-/**
-* @brief  系统定时器初始化 1Ms中断
-* @param   
-* @param  None
-* @param  None
-* @retval None
-* @example 
-**/
-void DelayInit(void)
+static u8  fac_us=0;							
+static u16 fac_ms=0;				
+
+void delay_init(void)
 {
 	SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK_Div8);
-	SysTick_Config(SystemCoreClock / 1000);//1Ms
-}
+	fac_us=SystemCoreClock/8000000;				
+	fac_ms=(u16)fac_us*1000;					 
+}	
 
-/**
-* @brief  延时ms
-* @param  ms 延时ms
-* @param  None
-* @param  None
-* @retval None
-* @example 
-**/
-void delay_ms(u16 ms)
-{
-  SysTickCntMs = 0;
-	while(SysTickCntMs<ms);
-}
 
-/**
-* @brief  系统定时器中断
-* @param  
-* @param  None
-* @param  None
-* @retval None
-* @example 
-**/
-void SysTick_Handler(void)
-{	
-	SysTickCntMs ++;
-	
-	ConfigModuleBlockDelay++;
-	ConfigModuleNoBlockCnt++;
-	maindelay++;
-	
-	if(Usart1ReadCnt!=0)//串口接收到数据
+	    								   
+void delay_us(u32 nus)
+{		
+	u32 temp;	    	 
+	SysTick->LOAD=nus*fac_us; 					
+	SysTick->VAL=0x00;        					
+	SysTick->CTRL|=SysTick_CTRL_ENABLE_Msk ;
+	do
 	{
-	  Usart1IdleCnt++;//变量累加(该变量在串口接收时清零)
-		if(Usart1IdleCnt>=Usart1IdleTime)//串口 Usart1IdleTime Ms 时间没有接收到数据
-		{
-		  Usart1IdleCnt = 0;
-			Usart1ReadCntCopy = Usart1ReadCnt;
-			Usart1ReadCnt = 0;
-			Usart1ReadFlage = 1;
-		}
-	}
+		temp=SysTick->CTRL;
+	}while((temp&0x01)&&!(temp&(1<<16)));		
+	SysTick->CTRL&=~SysTick_CTRL_ENABLE_Msk;	
+	SysTick->VAL =0X00;      					
 }
 
-
+void delay_ms(u16 nms)
+{	 		  	  
+	u32 temp;		   
+	SysTick->LOAD=(u32)nms*fac_ms;				
+	SysTick->VAL =0x00;							
+	SysTick->CTRL|=SysTick_CTRL_ENABLE_Msk ;	
+	do
+	{
+		temp=SysTick->CTRL;
+	}while((temp&0x01)&&!(temp&(1<<16)));		
+	SysTick->CTRL&=~SysTick_CTRL_ENABLE_Msk;	
+	SysTick->VAL =0X00;       					
+} 

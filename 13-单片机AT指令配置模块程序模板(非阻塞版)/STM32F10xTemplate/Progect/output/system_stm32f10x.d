@@ -5,7 +5,7 @@
 .\output\system_stm32f10x.o: ..\CMSIS\system_stm32f10x.h
 .\output\system_stm32f10x.o: ..\User\stm32f10x_conf.h
 .\output\system_stm32f10x.o: ..\Libraries\inc\stm32f10x_adc.h
-.\output\system_stm32f10x.o: E:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include\stm32f10x.h
+.\output\system_stm32f10x.o: ..\CMSIS\stm32f10x.h
 .\output\system_stm32f10x.o: ..\Libraries\inc\stm32f10x_bkp.h
 .\output\system_stm32f10x.o: ..\Libraries\inc\stm32f10x_can.h
 .\output\system_stm32f10x.o: ..\Libraries\inc\stm32f10x_cec.h

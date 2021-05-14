@@ -32,6 +32,3 @@
 .\output\usart.o: ..\Libraries\inc\misc.h
 .\output\usart.o: ..\mem\BufferManage.h
 .\output\usart.o: ..\mem\LoopList.h
-.\output\usart.o: ..\mqtt\mqtt.h
-.\output\usart.o: E:\MDK5\ARM\ARMCC\Bin\..\include\string.h
-.\output\usart.o: ..\mqtt\mqtt_msg.h

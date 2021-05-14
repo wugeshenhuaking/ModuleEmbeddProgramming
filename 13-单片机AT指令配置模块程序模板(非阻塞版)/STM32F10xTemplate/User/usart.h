@@ -2,25 +2,79 @@
 #define __USART_H
 #include <stm32f10x.h>
 #ifndef USART_C_//如果没有定义
-#define USART_C_ extern
+#define USART_Ex_ extern
 #else
-#define USART_C_
+#define USART_Ex_
 #endif
 
 
-#define Usart1ReadLen 150  //串口1接收数据数组大小
-#define Usart1SendLen 500  //定义最大发送字节数
-USART_C_ char Usart1ReadBuff[Usart1ReadLen];  //接收数据缓存
-USART_C_ u32  Usart1ReadCnt;//串口1接收到的数据个数
-USART_C_ u32  Usart1ReadCntCopy;//串口1接收到的数据个数
-USART_C_ u32  Usart1IdleCnt;//空闲检测用
-USART_C_ u32  Usart1IdleTime;//设置串口空闲时间(MS)
-USART_C_ u8   Usart1ReadFlage;//串口1接收到一条完整数据
-USART_C_ u8  Usart1SendBuff[Usart1SendLen];  //发送数据缓存--环形队列用
+#include "BufferManage.h"
+#include "LoopList.h"
 
-void uart_init(u32 bound);//串口1初始化
-void UsartOutStr(unsigned char *c,uint32_t cnt);//串口发送字符串数据
-void UsartOutChar(unsigned char c);//串口发送一个字节
+/****************************串口1****************************/
+//接收环形队列
+USART_Ex_ rb_t rb_t_usart1_read;
+#define rb_t_usart1_read_buff_len 1024
+USART_Ex_ unsigned char rb_t_usart1_read_buff[rb_t_usart1_read_buff_len];
+//从缓存拷贝数据使用
+USART_Ex_ unsigned char usart1_read_buff_copy[rb_t_usart1_read_buff_len];
+//接收计数
+USART_Ex_ int usart1_read_count;
+
+
+//发送环形队列
+USART_Ex_ rb_t rb_t_usart1_send;
+#define rb_t_usart1_send_buff_len 1024
+USART_Ex_ unsigned char rb_t_usart1_send_buff[rb_t_usart1_send_buff_len];
+USART_Ex_ unsigned char rb_t_usart1_send_byte;//串口提取环形队列1个字节
+
+//空闲中断标志
+USART_Ex_ unsigned char usart1_idle_flag;//标志
+
+
+
+/****************************串口2****************************/
+//接收环形队列
+USART_Ex_ rb_t rb_t_usart2_read;
+#define rb_t_usart2_read_buff_len 100
+//环形队列缓存数组
+USART_Ex_ unsigned char rb_t_usart2_read_buff[rb_t_usart2_read_buff_len];
+//从缓存拷贝数据使用
+USART_Ex_ unsigned char usart2_read_buff_copy[rb_t_usart2_read_buff_len];
+
+
+//自定义空闲中断检测
+USART_Ex_ int usart2_idle_read_count;//接收计数
+USART_Ex_ unsigned char usart2_idle_flag;
+
+
+
+/****************************串口3****************************/
+USART_Ex_ rb_t rb_t_usart3_read;
+//环形队列接收使用的缓存数组
+#define rb_t_usart3_read_buff_len 1024
+USART_Ex_ unsigned char rb_t_usart3_read_buff[rb_t_usart3_read_buff_len];
+//从缓存拷贝数据使用
+USART_Ex_ unsigned char usart3_read_buff_copy[rb_t_usart3_read_buff_len];
+
+
+USART_Ex_ rb_t rb_t_usart3_send;
+//环形队列发送使用的缓存数组
+#define rb_t_usart3_send_buff_len 1024
+USART_Ex_ unsigned char rb_t_usart3_send_buff[rb_t_usart3_send_buff_len];
+USART_Ex_ unsigned char rb_t_usart3_send_byte;//串口提取环形队列1个字节
+
+//空闲中断标志
+USART_Ex_ unsigned char usart3_idle_flag;//标志
+
+
+
+
+void usart_init(u32 bound1,u32 bound2,u32 bound3);//串口初始化
+void UsartOutStrIT(USART_TypeDef* USARTx, unsigned char *c,uint32_t cnt);
+void UsartOutStr(USART_TypeDef* USARTx, unsigned char *c,uint32_t cnt);//串口发送字符串数据
+void UsartOutChar(USART_TypeDef* USARTx, unsigned char c);//串口发送一个字节
+void Usart2IdleLoop(int IdleCnt);
 #endif
 
 
